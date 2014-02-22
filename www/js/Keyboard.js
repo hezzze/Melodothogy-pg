@@ -86,9 +86,12 @@
 		this.playMode = "synth";
 
 		this.init = function() {
-			for (var k = 0; k < numOfKeys; k++) {
-				synths[k] = new Synth(audioContext);
-			}
+			
+			//Web audio is not currently supported by android webview
+			
+//			for (var k = 0; k < numOfKeys; k++) {
+//				synths[k] = new Synth(audioContext);
+//			}
 
 			element = document.createElement("div");
 			element.style.width = width + 'px';

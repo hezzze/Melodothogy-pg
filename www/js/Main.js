@@ -373,6 +373,8 @@ function uiInit() {
 	
 
 	$('#instrumentBtnsKeys input').click(function() {
+		//Web audio is not currently supported by android webview
+		
 		if (this.value === "synthesizer") {
 			keyboard.playMode = keyboard.SYNTHESIZE;
 			$("#scale-selector").selectmenu("enable");
@@ -385,7 +387,7 @@ function uiInit() {
 			$("#type-selector").selectmenu("disable");
 			$("#frequency-slider").slider("disable");
 		}
-		// alert(this.value);
+		 alert(this.value);
 	});
 
 	// TODO
@@ -588,12 +590,6 @@ function getNotePoints() {
 		});
 	}
 	return points;
-}
-
-function getAudioContext() {
-	var audioContext;
-	audioContext = window.AudioContext || window.webkitAudioContext;
-	return new audioContext();
 }
 
 function touchable() {
