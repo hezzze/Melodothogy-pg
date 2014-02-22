@@ -24,16 +24,187 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+		
+		
+		<link rel="stylesheet"
+		href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet"
+		href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script
+			src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<script src="http://code.createjs.com/createjs-2013.09.25.min.js"></script>
+		<script src="js/shake.js"></script>
+		<script src="js/Box2dWeb-2.1.a.3.js"></script>
+		<script src="js/poly2tri.js"></script>
+		<script src="js/Class.js"></script>
+		<script src="js/Main.js"></script>
+		<script src="js/Physics.js"></script>
+		<script src="js/Body.js"></script>
+		<script src="js/MusicalScales.js"></script>
+		<script src="js/Keyboard.js"></script>
+		<script src="js/Song.js"></script>
+		<script type="text/javascript" src="js/Synth.js"></script>
+		<style>
+		#myCanvas {
+			background-color: black;
+			border-radius: 10px
+		}
+
+		.instrumentBtnGroup img {
+			vertical-align: middle;
+			margin-right: 1em
+		}
+
+		.ui-progressbar {
+			position: relative;
+		}
+
+		#progressLabel {
+			position: absolute;
+			left: 50%;
+			top: 4px;
+			font-weight: bold;
+			text-shadow: 1px 1px 0 #fff
+		}
+
+		#appTitle {
+			text-align: center;
+			font: italic 40px times new roman, sans serif
+		}
+		</style>
+        <title>Melodothogy</title>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
+        
+		<div id="loadingPage" data-role="page">
+			<div data-role="content">
+				<table style="margin: auto">
+					<tr>
+						<td><div id="appTitle">Melodothogy</div></td>
+					</tr>
+					<tr>
+						<td><img src="assets/imgs/logo.png" width="440px"
+							height="330px"></td>
+					</tr>
+					<tr>
+						<td><div id="loadingProgressbar"></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div id="homePage" data-role="page">
+			<div id="leftPanelHome">
+				<ul data-role="listview" data-inset="true" data-divider-theme="d">
+					<li data-role="list-divider">Instruments</li>
+					<li>
+						<div id="instrumentBtnsHome" class="instrumentBtnGroup"
+							data-role="controlgroup">
+							<input type="radio" name="radio-choice-1" id="radio-choice-1a"
+								checked="checked" value="piano"><label
+								for="radio-choice-1a"><img
+								src="assets/imgs/piano-200x227.png" width='40' height='40'>Piano</label><input
+								type="radio" name="radio-choice-1" id="radio-choice-1b"
+								value="guitar"> <label for="radio-choice-1b"><img
+								src="assets/imgs/guitar-200x219.png" width='40' height='40'>Guitar</label><input
+								type="radio" name="radio-choice-1" id="radio-choice-1c"
+								value="violin"> <label for="radio-choice-1c"><img
+								src="assets/imgs/violin-128x128.png" width='40' height='40'>Violin</label><input
+								type="radio" name="radio-choice-1" id="radio-choice-1d"
+								value="flute"> <label for="radio-choice-1d"><img
+								src="assets/imgs/flute-200x200.png" width='40' height='40'>Flute</label><input
+								type="radio" name="radio-choice-1" id="radio-choice-1e"
+								value="songs"> <label for="radio-choice-1e"><img
+								src="assets/imgs/music-256x256.png" width='40' height='40'
+								style="font-size: 10px">Songs</label>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div data-role="content">
+				<table style="background-color: #e5e5e5; border-radius: 10px">
+					<tr>
+						<td><a href="#keyboardPage" data-inline="true"><img
+								src="assets/imgs/piano_keyboard-176x176.png" width='50'
+								height='50'></a></td>
+						<td rowspan='4'><canvas id="myCanvas" width="800" height="500"></canvas></td>
+					</tr>
+					<tr>
+						<td><a href="#leftPanelHome" data-inline="true"><img
+								src="assets/imgs/settings-icon-256x256.png" width='50'
+								height='50'></a></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div id="keyboardPage" data-role="page">
+			<div data-role="panel" id="leftPanelKeys" data-display="push">
+				<ul data-role="listview" data-inset="true" data-divider-theme="d">
+					<li data-role="list-divider">Instruments</li>
+					<li>
+						<fieldset id="instrumentBtnsKeys" class="instrumentBtnGroup"
+							data-role="controlgroup">
+							<input type="radio" name="radio-choice-2" id="radio-choice-2a"
+								checked="checked" value="piano"><label
+								for="radio-choice-2a"><img
+								src="assets/imgs/piano-200x227.png" width='40' height='40'>Piano</label><input
+								type="radio" name="radio-choice-2" id="radio-choice-2b"
+								value="guitar"> <label for="radio-choice-2b"><img
+								src="assets/imgs/guitar-200x219.png" width='40' height='40'>Guitar</label><input
+								type="radio" name="radio-choice-2" id="radio-choice-2c"
+								value="violin"> <label for="radio-choice-2c"><img
+								src="assets/imgs/violin-128x128.png" width='40' height='40'>Violin</label><input
+								type="radio" name="radio-choice-2" id="radio-choice-2d"
+								value="flute"> <label for="radio-choice-2d"><img
+								src="assets/imgs/flute-200x200.png" width='40' height='40'>Flute</label><input
+								type="radio" name="radio-choice-2" id="radio-choice-2e"
+								value="synthesizer"> <label for="radio-choice-2e"><img
+								src="assets/imgs/synthesizer-256x256.png" width='40' height='40'
+								style="font-size: 10px">Synthesizer</label>
+						</fieldset>
+					</li>
+				</ul>
+				<fieldset data-role="controlgroup">
+					<select id="scale-selector">
+						<option value="pythagorean">Pythagorean Scale</option>
+						<option value="eventempered">Eventempered Scale</option>
+						<option value="dodecaphonic">Dodecaphonic Scale</option>
+						<option value="ptolemy">Ptolemy Scale</option>
+					</select> <select id="type-selector">
+						<option value="0">Sine wave</option>
+						<option value="1">Square wave</option>
+						<option value="2">Saw tooth wave</option>
+						<option value="3">Triangle wave</option>
+					</select>
+				</fieldset>
+				<input type="range" id="frequency-slider" data-highlight="true"
+					disabled="disabled" min="128" max="528" value="256">
+			</div>
+			<div data-role="content">
+				<table style="background-color: #e5e5e5; border-radius: 10px">
+					<tr>
+						<td><a href="#homePage" data-inline="true"><img
+								src="assets/imgs/note-383x383.png" width='50' height='50'></a></td>
+						<td id="kbContainer" rowspan='3'></td>
+					</tr>
+					<tr>
+						<td><a href="#leftPanelKeys" data-inline="true"><img
+								src="assets/imgs/settings-icon-256x256.png" width='50'
+								height='50'></a></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
