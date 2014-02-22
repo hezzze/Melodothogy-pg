@@ -26,7 +26,11 @@
 		var whiteKeyHeight = height;
 		var blackKeyWidth = whiteKeyWidth / 2;
 		var blackKeyHeight = whiteKeyHeight * 0.6;
-		var audioContext = getAudioContext();
+		try {
+			var audioContext = getAudioContext();
+		} catch (e) {
+			alert("Web Audio API is not supported in this browser...");
+		}
 
 		var playNote = function(self, i) {
 			if (self.playMode === self.SYNTHESIZE || !callback) {

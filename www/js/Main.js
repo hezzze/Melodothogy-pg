@@ -592,11 +592,7 @@ function getNotePoints() {
 
 function getAudioContext() {
 	var audioContext;
-	try {
-		audioContext = window.AudioContext || window.webkitAudioContext;
-	} catch (e) {
-		alert("Web Audio API is not supported in this browser...");
-	}
+	audioContext = window.AudioContext || window.webkitAudioContext;
 	return new audioContext();
 }
 
